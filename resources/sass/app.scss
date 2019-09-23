@@ -1,0 +1,24 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+@import "~font-awesome/css/font-awesome.min.css";
+@import "~toastr/build/toastr.css";
+@import "~bootstrap-table/dist/bootstrap-table.min.css";
+@import "~datatables.net-bs4/css/dataTables.bootstrap4.min.css";
+@import "light-bootstrap-dashboard.css";
+
+//partial styles
+@import "partials/toastr";
+@import "partials/datatables";
+@import "partials/partial-nav";
+
+.clickable-span:hover {
+  cursor: pointer;
+  color: $primary;
+}
+

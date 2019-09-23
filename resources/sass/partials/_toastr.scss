@@ -1,0 +1,10 @@
+.toast {
+  opacity: 0.90 !important;
+  background: #3490dc !important;
+  background-position-y: 50% !important;
+  background-position-x: 7px !important;
+}
+
+#toast-container > div.toast {
+  background-repeat: no-repeat !important;
+}
