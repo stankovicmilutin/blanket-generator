@@ -15,6 +15,11 @@
                         @endif
 
                         You are logged in!
+
+                        -- Total Blankets
+                        -- Blankets this week
+                        -- Blanket views
+                        -- Top 5 popular blankets
                     </div>
                 </div>
             </div>
