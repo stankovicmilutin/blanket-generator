@@ -22,9 +22,9 @@ class Course extends Model
         return $this->belongsTo(Department::class);
     }
 
-    public function fields()
+    public function domains()
     {
-        return $this->hasMany(Field::class);
+        return $this->hasMany(Domain::class);
     }
 
     public function tasks()

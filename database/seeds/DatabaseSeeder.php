@@ -69,24 +69,24 @@ class DatabaseSeeder extends Seeder
 
 
         // Oblasti
-        \App\Field::create(["course_id" => 1, "name" => "Kompleksni brojevi"]);
-        \App\Field::create(["course_id" => 1, "name" => "Sistemi jednaćina"]);
-        \App\Field::create(["course_id" => 1, "name" => "Polinomi"]);
-        \App\Field::create(["course_id" => 1, "name" => "Matrice"]);
-        \App\Field::create(["course_id" => 1, "name" => "Analitička geometrija"]);
+        \App\Domain::create(["course_id" => 1, "name" => "Kompleksni brojevi"]);
+        \App\Domain::create(["course_id" => 1, "name" => "Sistemi jednaćina"]);
+        \App\Domain::create(["course_id" => 1, "name" => "Polinomi"]);
+        \App\Domain::create(["course_id" => 1, "name" => "Matrice"]);
+        \App\Domain::create(["course_id" => 1, "name" => "Analitička geometrija"]);
 
-        \App\Field::create(["course_id" => 1, "name" => "Kompleksni brojevi",         "type" => "theory"]);
-        \App\Field::create(["course_id" => 1, "name" => "Matrice",                    "type" => "theory"]);
-        \App\Field::create(["course_id" => 1, "name" => "Vektori",                    "type" => "theory"]);
+        \App\Domain::create(["course_id" => 1, "name" => "Kompleksni brojevi", "type" => "theory"]);
+        \App\Domain::create(["course_id" => 1, "name" => "Matrice", "type" => "theory"]);
+        \App\Domain::create(["course_id" => 1, "name" => "Vektori", "type" => "theory"]);
 
-        \App\Field::create(["course_id" => 2, "name" => "Nizovi"]);
-        \App\Field::create(["course_id" => 2, "name" => "Tačke prekida funkcije"]);
-        \App\Field::create(["course_id" => 2, "name" => "Grafik funkcije"]);
-        \App\Field::create(["course_id" => 2, "name" => "Integrali"]);
+        \App\Domain::create(["course_id" => 2, "name" => "Nizovi"]);
+        \App\Domain::create(["course_id" => 2, "name" => "Tačke prekida funkcije"]);
+        \App\Domain::create(["course_id" => 2, "name" => "Grafik funkcije"]);
+        \App\Domain::create(["course_id" => 2, "name" => "Integrali"]);
 
-        \App\Field::create(["course_id" => 2, "name" => "Granične vrednosti",         "type" => "theory"]);
-        \App\Field::create(["course_id" => 2, "name" => "Funkcije",                   "type" => "theory"]);
-        \App\Field::create(["course_id" => 2, "name" => "Integrali",                  "type" => "theory"]);
+        \App\Domain::create(["course_id" => 2, "name" => "Granične vrednosti", "type" => "theory"]);
+        \App\Domain::create(["course_id" => 2, "name" => "Funkcije", "type" => "theory"]);
+        \App\Domain::create(["course_id" => 2, "name" => "Integrali", "type" => "theory"]);
 
 
 

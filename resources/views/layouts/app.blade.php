@@ -15,11 +15,11 @@
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
 </head>
 
 <body>
 <div class="wrapper">
-    @include('flash::message')
     @auth
         @include('layouts.partials.sidebar')
     @endauth
@@ -35,12 +35,20 @@
             @include('layouts.partials.topbar')
         @endauth
 
+
         <div class="content">
-            @yield('content')
+            <div class="container-fluid">
+                @include('flash::message')
+
+                @yield('content')
+            </div>
         </div>
     </div>
 </div>
+
 <script src="{{ asset('js/app.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
+
 @stack('js')
 </body>
 </html>

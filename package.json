@@ -11,15 +11,17 @@
     },
     "devDependencies": {
         "@babel/preset-react": "^7.0.0",
-        "axios": "^0.19",
-        "bootstrap": "^4.0.0",
+        "@babel/preset-env": "^7.2.3",
+        "@babel/plugin-proposal-class-properties": "^7.2.3",
+        "axios": "^0.18",
+        "bootstrap": "^4.3.1",
         "cross-env": "^5.1",
         "jquery": "^3.2",
         "laravel-mix": "^4.0.7",
-        "lodash": "^4.17.13",
+        "lodash": "^4.17.5",
         "popper.js": "^1.12",
-        "react": "^16.2.0",
-        "react-dom": "^16.2.0",
+        "react": "^16.9.0",
+        "react-dom": "^16.9.0",
         "resolve-url-loader": "^2.3.1",
         "sass": "^1.15.2",
         "sass-loader": "^7.1.0"
@@ -32,8 +34,19 @@
         "immutability-helper": "^3.0.1",
         "prop-types": "^15.7.2",
         "react-select": "^3.0.4",
+        "select2": "^4.0.10",
+        "select2-bootstrap-theme": "0.1.0-beta.10",
         "sweetalert2": "^8.15.2",
         "toastr": "^2.1.4",
         "uuid": "^3.3.2"
+    },
+    "babel": {
+        "presets": [
+            "@babel/preset-env",
+            "@babel/preset-react"
+        ],
+        "plugins": [
+            "@babel/plugin-proposal-class-properties"
+        ]
     }
 }

@@ -11,6 +11,10 @@ try {
     window.$ = window.jQuery = require('jquery');
 
     require('bootstrap');
+    require('bootstrap-table');
+    require('datatables.net');
+    require('datatables.net-bs4');
+    require('./light-bootstrap-dashboard');
 } catch (e) {}
 
 /**
@@ -53,3 +57,22 @@ if (token) {
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
+
+
+function checkFullPageBackgroundImage() {
+    $page = $('.full-page');
+    image_src = $page.data('image');
+
+    if(image_src !== undefined) {
+        image_container = '<div class="full-page-background" style="background-image: url(' + image_src + ') "/>';
+        $page.append(image_container);
+    }
+}
+
+$(document).ready(() => {
+    checkFullPageBackgroundImage();
+    setTimeout(function() {
+        // after 1000 ms we add the class animated to the login/register card
+        $('.card').removeClass('card-hidden');
+    }, 700);
+});

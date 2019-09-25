@@ -42,7 +42,7 @@ Tip 2: you can also add an image using data-image tag
         </div>
 
         <ul class="nav">
-            <li class="nav-item ">
+            <li class="nav-item">
                 <a class="nav-link" href="/">
                     <i class="nc-icon nc-chart-pie-35"></i>
                     <p>Dashboard</p>
@@ -51,7 +51,7 @@ Tip 2: you can also add an image using data-image tag
 
             <li class="nav-item">
                 <a class="nav-link" data-toggle="collapse" href="#componentsExamples">
-                    <i class="nc-icon nc-satisfied"></i>
+                    <i class="nc-icon nc-single-copy-04"></i>
                     <p>Blankets <b class="caret"></b></p>
                 </a>
                 <div class="collapse " id="componentsExamples">
@@ -72,88 +72,26 @@ Tip 2: you can also add an image using data-image tag
                 </div>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="collapse" href="#formsExamples">
-                    <i class="nc-icon nc-delivery-fast"></i>
-                    <p>Task Templates <b class="caret"></b>
-                    </p>
+
+            <li class="nav-item ">
+                <a class="nav-link" href="{{ route('templates.index') }}">
+                    <i class="nc-icon nc-bullet-list-67"></i>
+                    <p>Tasks</p>
                 </a>
-                <div class="collapse " id="formsExamples">
-                    <ul class="nav">
-                        <li class="nav-item ">
-                            <a class="nav-link" href="./forms/validation.html">
-                                <span class="sidebar-mini">Vf</span>
-                                <span class="sidebar-normal">Validation Forms</span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="./forms/wizard.html">
-                                <span class="sidebar-mini">W</span>
-                                <span class="sidebar-normal">Wizard</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
             </li>
 
-
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="collapse" href="#formsExamples2">
-                    <i class="nc-icon nc-delivery-fast"></i>
-                    <p>Blanket Templates <b class="caret"></b>
-                    </p>
+            <li class="nav-item ">
+                <a class="nav-link" href="{{ route('templates.index') }}">
+                    <i class="nc-icon nc-notes"></i>
+                    <p>Templates</p>
                 </a>
-                <div class="collapse " id="formsExamples2">
-                    <ul class="nav">
-                        <li class="nav-item ">
-                            <a class="nav-link" href="./forms/validation.html">
-                                <span class="sidebar-mini">Vf</span>
-                                <span class="sidebar-normal">Validation Forms</span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="./forms/wizard.html">
-                                <span class="sidebar-mini">W</span>
-                                <span class="sidebar-normal">Wizard</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="collapse" href="#tablesExamples">
-                    <i class="nc-icon nc-pin-3"></i>
-                    <p>Subjects <b class="caret"></b></p>
+            <li class="nav-item ">
+                <a class="nav-link" href="{{ route('courses.index') }}">
+                    <i class="nc-icon nc-ruler-pencil"></i>
+                    <p>Courses</p>
                 </a>
-                <div class="collapse " id="tablesExamples">
-                    <ul class="nav">
-                        <li class="nav-item ">
-                            <a class="nav-link" href="./tables/regular.html">
-                                <span class="sidebar-mini">RT</span>
-                                <span class="sidebar-normal">Regular Tables</span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="./tables/extended.html">
-                                <span class="sidebar-mini">ET</span>
-                                <span class="sidebar-normal">Extended Tables</span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="./tables/bootstrap-table.html">
-                                <span class="sidebar-mini">BT</span>
-                                <span class="sidebar-normal">Bootstrap Table</span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="./tables/datatables.net.html">
-                                <span class="sidebar-mini">DT</span>
-                                <span class="sidebar-normal">DataTables.net</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
             </li>
 
 

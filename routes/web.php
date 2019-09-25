@@ -13,10 +13,23 @@
 
 Route::get('/', 'HomeController@index')->name('home');
 
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group(["middleware" => "auth"], function() {
+    Route::get('/home', 'HomeController@index')->name('home');
 
 
-Route::get('/settings', 'SettingsController@index')->name('settings.index');
+    Route::get('/settings', 'SettingsController@index')->name('settings.index');
+
+
+
+    Route::get('courses/get', 'CourseController@getCourses');
+    Route::resource('courses', 'CourseController');
+
+    Route::get('templates/get', 'TemplateController@getTemplates');
+    Route::resource('templates', 'TemplateController');
+
+    Route::get('tasks/get', 'TaskController@getTasks');
+    Route::resource('tasks', 'TaskController');
+});
