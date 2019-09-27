@@ -23,7 +23,6 @@ Route::group(["middleware" => "auth"], function() {
     Route::get('/settings', 'SettingsController@index')->name('settings.index');
 
 
-
     Route::get('courses/get', 'CourseController@getCourses');
     Route::resource('courses', 'CourseController');
 

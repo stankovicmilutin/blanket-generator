@@ -1,5 +1,6 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://fonts.googleapis.com/css?family=Lora&display=swap');
 
 // Variables
 @import 'variables';
@@ -23,3 +24,10 @@
   color: $primary;
 }
 
+.blanket {
+  font-family: 'Lora', serif;
+
+  body, h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6, p, .navbar, .brand, .btn-simple, .alert, a, .td-name, td, button.close {
+    font-family: 'Lora', serif;
+  }
+}

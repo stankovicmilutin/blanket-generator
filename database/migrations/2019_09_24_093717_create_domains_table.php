@@ -19,7 +19,6 @@ class CreateDomainsTable extends Migration
             $table->unsignedBigInteger('course_id');
 
             $table->string('name');
-            $table->string('type')->default('practice');
 
             $table->timestamps();
         });

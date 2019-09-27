@@ -12,16 +12,16 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // Katedra
-        \App\Department::create(["name" => "Automatika"]);                  // 1
-        \App\Department::create(["name" => "Elektronika"]);                 // 2
-        \App\Department::create(["name" => "Energetika"]);                  // 3
-        \App\Department::create(["name" => "Matematika"]);                  // 4
-        \App\Department::create(["name" => "Merenja"]);                     // 5
-        \App\Department::create(["name" => "Mikroelektronika"]);            // 6
-        \App\Department::create(["name" => "Računarstvo"]);                 // 7
-        \App\Department::create(["name" => "Telekomunikacije"]);            // 8
-        \App\Department::create(["name" => "Teorijska Elektrotehnika"]);    // 9
-        \App\Department::create(["name" => "Opšte obrazovni predmeti"]);    // 10
+        \App\Department::create(["name" => "Katedra za Automatiku"]);                  // 1
+        \App\Department::create(["name" => "Katedra za Elektroniku"]);                 // 2
+        \App\Department::create(["name" => "Katedra za Energetiku"]);                  // 3
+        \App\Department::create(["name" => "Katedra za Matematiku"]);                  // 4
+        \App\Department::create(["name" => "Katedra za Merenja"]);                     // 5
+        \App\Department::create(["name" => "Katedra za Mikroelektroniku"]);            // 6
+        \App\Department::create(["name" => "Katedra za Računarstvo"]);                 // 7
+        \App\Department::create(["name" => "Katedra za Telekomunikacije"]);            // 8
+        \App\Department::create(["name" => "Katedra za Teorijsku Elektrotehniku"]);    // 9
+        \App\Department::create(["name" => "Katedra za Opšte obrazovne predmete"]);    // 10
 
 
         // Smer
@@ -75,22 +75,30 @@ class DatabaseSeeder extends Seeder
         \App\Domain::create(["course_id" => 1, "name" => "Matrice"]);
         \App\Domain::create(["course_id" => 1, "name" => "Analitička geometrija"]);
 
-        \App\Domain::create(["course_id" => 1, "name" => "Kompleksni brojevi", "type" => "theory"]);
-        \App\Domain::create(["course_id" => 1, "name" => "Matrice", "type" => "theory"]);
-        \App\Domain::create(["course_id" => 1, "name" => "Vektori", "type" => "theory"]);
+        \App\Domain::create(["course_id" => 1, "name" => "Kompleksni brojevi"]);
+        \App\Domain::create(["course_id" => 1, "name" => "Matrice"]);
+        \App\Domain::create(["course_id" => 1, "name" => "Vektori"]);
 
         \App\Domain::create(["course_id" => 2, "name" => "Nizovi"]);
         \App\Domain::create(["course_id" => 2, "name" => "Tačke prekida funkcije"]);
         \App\Domain::create(["course_id" => 2, "name" => "Grafik funkcije"]);
         \App\Domain::create(["course_id" => 2, "name" => "Integrali"]);
 
-        \App\Domain::create(["course_id" => 2, "name" => "Granične vrednosti", "type" => "theory"]);
-        \App\Domain::create(["course_id" => 2, "name" => "Funkcije", "type" => "theory"]);
-        \App\Domain::create(["course_id" => 2, "name" => "Integrali", "type" => "theory"]);
+        \App\Domain::create(["course_id" => 2, "name" => "Granične vrednosti"]);
+        \App\Domain::create(["course_id" => 2, "name" => "Funkcije"]);
+        \App\Domain::create(["course_id" => 2, "name" => "Integrali"]);
 
+        \App\Template::create(["course_id" => 1, "name" => "Prvi kolokvijum"]);
+        \App\Template::create(["course_id" => 1, "name" => "Drugi kolokvijum"]);
+        \App\Template::create(["course_id" => 1, "name" => "Ispit"]);
 
-
-
-
+        \App\Task::create(["domain_id" => 1, "type" => "practice", "body" => "Izracunati:"]);
+        \App\Task::create(["domain_id" => 1, "type" => "practice", "body" => "Izracunati:"]);
+        \App\Task::create(["domain_id" => 1, "type" => "practice", "body" => "Izracunati:"]);
+        \App\Task::create(["domain_id" => 1, "type" => "practice", "body" => "Izracunati:"]);
+        \App\Task::create(["domain_id" => 1, "type" => "theory", "body" => "Izvedi formulu:"]);
+        \App\Task::create(["domain_id" => 1, "type" => "theory", "body" => "Izvedi formulu:"]);
+        \App\Task::create(["domain_id" => 1, "type" => "theory", "body" => "Izvedi formulu:"]);
+        \App\Task::create(["domain_id" => 1, "type" => "theory", "body" => "Izvedi formulu:"]);
     }
 }

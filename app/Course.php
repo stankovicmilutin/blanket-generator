@@ -29,6 +29,6 @@ class Course extends Model
 
     public function tasks()
     {
-        return $this->hasMany(Task::class);
+        return $this->hasManyThrough(Task::class, Domain::class);
     }
 }

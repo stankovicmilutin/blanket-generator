@@ -2,11 +2,11 @@
 <nav class="navbar navbar-expand-lg ">
     <div class="container-fluid">
         <div class="navbar-wrapper">
-            <div class="navbar-minimize">
-                <button id="minimizeSidebar" class="btn btn-icon d-lg-block">
-                    <i class="fa fa-navicon"></i>
-                </button>
-            </div>
+{{--            <div class="navbar-minimize">--}}
+{{--                <button id="minimizeSidebar" class="btn btn-icon d-lg-block">--}}
+{{--                    <i class="fa fa-navicon"></i>--}}
+{{--                </button>--}}
+{{--            </div>--}}
             <a class="navbar-brand" href="/"> Blanket Generator Platform </a>
         </div>
 
