@@ -3,7 +3,7 @@
 ### Practical part of final exam project 
 
 
-<p align="center">Built with </p>
+<p>Built with</p>
 <p align="center">
     <img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400">
     <img src="https://png2.cleanpng.com/sh/25ced91ff24f0f8e55445d41cee0bcaf/L0KzQYm3WMIxN6h5gZH0aYP2gLBuTgJmaZR5Rd54Z3Awgrbrlgguf5ZniNNsaz3lcbPsjL0uPZM8eqk7NUi5SYWCUcIvPWU7TaY9MEK0RYS7WME3QGY7TKU6Mz7zfri=/kisspng-react-logo-redux-webpack-babel--5b7b7258694912.5465440215348168564313.png" width="340">
@@ -24,10 +24,6 @@ Laravel is a web application framework with expressive, elegant syntax. We belie
 
 Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## License
-
-The Laravel framework is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-
 ## About [React](https://reactjs.org/)
 
 React is a JavaScript library for building user interfaces.
@@ -37,5 +33,6 @@ React is a JavaScript library for building user interfaces.
 * **Learn Once, Write Anywhere:** We don't make assumptions about the rest of your technology stack, so you can develop new features in React without rewriting existing code. React can also render on the server using Node and power mobile apps using [React Native](https://facebook.github.io/react-native/).
 
 ### License
+The Laravel framework is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
 React is [MIT licensed](./LICENSE).
