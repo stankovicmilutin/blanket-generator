@@ -8,9 +8,8 @@ class Task extends Model
 {
     protected $fillable = [
         "domain_id",
-        "task_type",
-        "body",
-        "points"
+        "type",
+        "body"
     ];
 
     public function domain()

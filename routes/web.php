@@ -31,4 +31,6 @@ Route::group(["middleware" => "auth"], function() {
 
     Route::get('tasks/get', 'TaskController@getTasks');
     Route::resource('tasks', 'TaskController');
+
+    Route::post('uploader/upload', 'TaskController@uploader');
 });

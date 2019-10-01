@@ -13,8 +13,10 @@ const mix = require('laravel-mix');
 
 mix.react('resources/js/app.js', 'public/js')
     .copyDirectory('resources/img', 'public/img')
+    .copyDirectory('resources/js/ckeditor', 'public/js/ckeditor')
     .sass('resources/sass/app.scss', 'public/css');
 
+mix.browserSync('generator.local');
 
 if (mix.inProduction()) {
     mix.version();

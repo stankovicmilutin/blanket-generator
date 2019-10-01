@@ -74,7 +74,7 @@ Tip 2: you can also add an image using data-image tag
 
 
             <li class="nav-item ">
-                <a class="nav-link" href="{{ route('templates.index') }}">
+                <a class="nav-link" href="{{ route('tasks.index') }}">
                     <i class="nc-icon nc-bullet-list-67"></i>
                     <p>Tasks</p>
                 </a>
@@ -106,12 +106,12 @@ Tip 2: you can also add an image using data-image tag
                 <hr/>
             </li>
 
-            <li class="nav-item ">
-                <a class="nav-link" href="{{ route('settings.index') }}">
-                    <i class="nc-icon nc-settings-gear-64"></i>
-                    <p>Settings</p>
-                </a>
-            </li>
+{{--            <li class="nav-item ">--}}
+{{--                <a class="nav-link" href="{{ route('settings.index') }}">--}}
+{{--                    <i class="nc-icon nc-settings-gear-64"></i>--}}
+{{--                    <p>Settings</p>--}}
+{{--                </a>--}}
+{{--            </li>--}}
 
         </ul>
     </div>

@@ -20,7 +20,6 @@ class CreateTasksTable extends Migration
             $table->string('type');
 
             $table->text('body');
-            $table->integer('points')->default(0);
 
             $table->timestamps();
         });
