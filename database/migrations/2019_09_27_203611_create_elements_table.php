@@ -17,13 +17,16 @@ class CreateElementsTable extends Migration
             $table->bigIncrements('id');
 
             $table->unsignedBigInteger('template_id');
-            $table->unsignedBigInteger('domain_id');
+            $table->unsignedBigInteger('domain_id')->nullable();
 
             $table->string('type');
             $table->string('text')->nullable();
-            $table->string('domain_type');
+            $table->string('domain_type')->nullable();
 
             $table->timestamps();
+
+            $table->foreign('template_id')->references('id')->on('templates')->onDelete('cascade');
+            $table->foreign('domain_id')->references('id')->on('domains')->onDelete('cascade');
         });
     }
 

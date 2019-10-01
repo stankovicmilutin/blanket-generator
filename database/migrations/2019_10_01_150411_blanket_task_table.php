@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTasksTable extends Migration
+class BlanketTaskTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,13 @@ class CreateTasksTable extends Migration
      */
     public function up()
     {
-        Schema::create('tasks', function (Blueprint $table) {
+        Schema::create('blanket_task', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->unsignedBigInteger('domain_id');
-            $table->string('type');
-
-            $table->text('body');
+            $table->unsignedBigInteger('blanket_id');
+            $table->unsignedBigInteger('task_id');
 
             $table->timestamps();
-
-            $table->foreign('domain_id')->references('id')->on('domains')->onDelete('cascade');
         });
     }
 
@@ -34,6 +30,6 @@ class CreateTasksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tasks');
+        //
     }
 }

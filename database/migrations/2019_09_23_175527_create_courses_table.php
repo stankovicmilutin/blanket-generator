@@ -22,6 +22,9 @@ class CreateCoursesTable extends Migration
             $table->string('name');
 
             $table->timestamps();
+
+            $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');
+            $table->foreign('module_id')->references('id')->on('modules')->onDelete('cascade');
         });
     }
 
