@@ -57,13 +57,13 @@ Tip 2: you can also add an image using data-image tag
                 <div class="collapse " id="componentsExamples">
                     <ul class="nav">
                         <li class="nav-item ">
-                            <a class="nav-link" href="{{ route('home') }}">
+                            <a class="nav-link" href="{{ route('blankets.index') }}">
                                 <span class="sidebar-mini"></span>
                                 <span class="sidebar-normal">Show Blankets</span>
                             </a>
                         </li>
                         <li class="nav-item ">
-                            <a class="nav-link" href="{{ route('home') }}">
+                            <a class="nav-link" href="{{ route('blankets.create') }}">
                                 <span class="sidebar-mini"></span>
                                 <span class="sidebar-normal">Create Blanket</span>
                             </a>

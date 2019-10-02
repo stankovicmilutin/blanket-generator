@@ -31,4 +31,14 @@ class Course extends Model
     {
         return $this->hasManyThrough(Task::class, Domain::class);
     }
+
+    public function templates()
+    {
+        return $this->hasMany(Template::class);
+    }
+
+    public function blankets()
+    {
+        return $this->hasManyThrough(Blanket::class, Template::class);
+    }
 }

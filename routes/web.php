@@ -27,10 +27,15 @@ Route::group(["middleware" => "auth"], function() {
     Route::resource('courses', 'CourseController');
 
     Route::get('templates/get', 'TemplateController@getTemplates');
+    Route::get('templates/{template}/elements', 'TemplateController@getElement');
     Route::resource('templates', 'TemplateController');
 
     Route::get('tasks/get', 'TaskController@getTasks');
     Route::resource('tasks', 'TaskController');
+
+
+    Route::get('blankets/get', 'BlanketController@getBlankets');
+    Route::resource('blankets', 'BlanketController');
 
     Route::post('uploader/upload', 'TaskController@uploader');
 });

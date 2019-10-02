@@ -7,12 +7,12 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col-6">
-                            <h4 class="card-title">Courses List</h4>
-                            <p class="card-category">List of all courses</p>
+                            <h4 class="card-title">Blankets List</h4>
+                            <p class="card-category">List of all blankets</p>
                         </div>
 
                         <div class="col-6 text-right">
-                            <a class="btn btn-primary" href="{{ route('courses.create') }}">Create new course</a>
+                            <a class="btn btn-primary" href="{{ route('blankets.create') }}">Create new blanket</a>
                         </div>
                     </div>
                 </div>
@@ -21,8 +21,12 @@
                         <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Name</th>
+                            <th>Ex. Period</th>
+                            <th>Template</th>
+                            <th>Course</th>
+                            <th>Module</th>
                             <th>Department</th>
+                            <th>Date</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
@@ -48,7 +52,7 @@
                     searchPlaceholder: "Search records",
                 },
                 "ajax": {
-                    url: "courses/get",
+                    url: "blankets/get",
                     data: function (d) {
                         // console.log(d);
                     }
@@ -57,23 +61,31 @@
                 "serverSide": true,
                 "columns": [
                     {data: 'id'},
-                    {data: 'name'},
+                    {data: 'examination_period'},
+                    {data: 'template_name'},
+                    {data: 'course_name'},
+                    {data: 'module_name'},
                     {data: 'department_name'},
+                    {
+                        data: 'date',
+                        render: ((data) => data.split('-').reverse().join('.') + '.')
+                    },
                     {
                         data: null,
                         render: (() => `
-                                           <button onclick="window.location.href = '/courses/' + $(this).closest('tr').data('id') + '/edit'" class="btn btn-link btn-warning"><i class="fa fa-edit"></i></button>
-                                           <button class="btn btn-link btn-danger js-delete"><i class="fa fa-times"/></i></button>
+                                           <button onclick="window.location.href = '/blankets/' + $(this).closest('tr').data('id') + '/edit'" class="btn btn-link btn-warning"><i class="fa fa-edit"></i></button>
+                                           <button class="btn btn-link btn-danger js-delete"><i class="fa fa-times"></i></button>
                                        `)
                     }
                 ],
+
                 'createdRow': function (row, data, dataIndex) {
                     $(row).attr('data-id', data.id);
                 },
                 "initComplete": () => {
                     $( document ).on("click", "tr[role='row'] .js-delete", (ev) => {
                         let itemId = $(ev.target.closest('tr')).data('id');
-                        let url = `/courses/${itemId}`;
+                        let url = `/blankets/${itemId}`;
 
                         swal.fire({
                             title: `Delete`,

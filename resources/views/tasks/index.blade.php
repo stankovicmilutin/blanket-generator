@@ -73,15 +73,33 @@
                     {data: 'module_name'},
                     {
                         data: null,
-                        render: (() => `
-                                           <button onclick="window.location.href = '/tasks/' + $(this).closest('tr').data('id') + '/edit'" class="btn btn-link btn-warning"><i class="fa fa-edit"></i></button>
-                                           <button class="btn btn-link btn-danger js-delete-course"><i class="fa fa-times"></i></button>
-                                       `)
+                        render: (
+                            () => `<button onclick="window.location.href = '/tasks/' + $(this).closest('tr').data('id') + '/edit'" class="btn btn-link btn-warning"><i class="fa fa-edit"></i></button>
+                                   <button class="btn btn-link btn-danger js-delete"><i class="fa fa-times"/></i></button>`)
                     }
                 ],
-
                 'createdRow': function (row, data, dataIndex) {
                     $(row).attr('data-id', data.id);
+                },
+                "initComplete": () => {
+                    $(document).on("click", "tr[role='row'] .js-delete", (ev) => {
+                        let itemId = $(ev.target.closest('tr')).data('id');
+                        let url = `/tasks/${itemId}`;
+
+                        swal.fire({
+                            title: `Delete`,
+                            text: `Are you sure you want to delete this item?`,
+                            type: 'warning',
+                            showCancelButton: true,
+                            confirmButtonText: 'Delete'
+                        }).then((isConfirm) => {
+                            if (isConfirm.dismiss) return;
+
+                            window.axios.delete(url).then(res => {
+                                $('#coursesTable').DataTable().ajax.reload();
+                            });
+                        });
+                    });
                 }
             });
         })();

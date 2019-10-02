@@ -35,10 +35,11 @@
         "font-awesome": "^4.7.0",
         "immutability-helper": "^3.0.1",
         "prop-types": "^15.7.2",
+        "react-datepicker": "^2.9.6",
         "react-select": "^3.0.5",
         "select2": "^4.0.10",
         "select2-bootstrap-theme": "0.1.0-beta.10",
-        "sweetalert2": "^8.15.2",
+        "sweetalert2": "^8.18.0",
         "toastr": "^2.1.4",
         "uuid": "^3.3.2"
     },

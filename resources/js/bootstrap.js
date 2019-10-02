@@ -15,6 +15,7 @@ try {
     require('datatables.net');
     require('datatables.net-bs4');
     require('./light-bootstrap-dashboard');
+    window.swal = require('sweetalert2');
 } catch (e) {}
 
 /**

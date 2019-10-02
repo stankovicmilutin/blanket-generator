@@ -13,4 +13,9 @@ class Element extends Model
         "type",
         "text"
     ];
+
+    public function domain()
+    {
+        return $this->belongsTo(Domain::class);
+    }
 }

@@ -74,9 +74,6 @@ class DatabaseSeeder extends Seeder
         \App\Domain::create(["course_id" => 1, "name" => "Polinomi"]);
         \App\Domain::create(["course_id" => 1, "name" => "Matrice"]);
         \App\Domain::create(["course_id" => 1, "name" => "Analitička geometrija"]);
-
-        \App\Domain::create(["course_id" => 1, "name" => "Kompleksni brojevi"]);
-        \App\Domain::create(["course_id" => 1, "name" => "Matrice"]);
         \App\Domain::create(["course_id" => 1, "name" => "Vektori"]);
 
         \App\Domain::create(["course_id" => 2, "name" => "Nizovi"]);
@@ -91,6 +88,19 @@ class DatabaseSeeder extends Seeder
         \App\Template::create(["course_id" => 1, "name" => "Prvi kolokvijum"]);
         \App\Template::create(["course_id" => 1, "name" => "Drugi kolokvijum"]);
         \App\Template::create(["course_id" => 1, "name" => "Ispit"]);
+
+        \App\Element::create(["template_id" => 1, "type" => "heading", "text" => "Zadaci"]);
+        \App\Element::create(["template_id" => 1, "domain_id" => 1, "domain_type" => "practice", "type" => "task"]);
+        \App\Element::create(["template_id" => 1, "domain_id" => 2, "domain_type" => "practice", "type" => "task"]);
+        \App\Element::create(["template_id" => 1, "domain_id" => 3, "domain_type" => "practice", "type" => "task"]);
+        \App\Element::create(["template_id" => 1, "domain_id" => 4, "domain_type" => "practice", "type" => "task"]);
+        \App\Element::create(["template_id" => 1, "type" => "separator"]);
+        \App\Element::create(["template_id" => 1, "type" => "heading", "text" => "Teorija"]);
+        \App\Element::create(["template_id" => 1, "domain_id" => 1, "domain_type" => "theory", "type" => "task"]);
+        \App\Element::create(["template_id" => 1, "domain_id" => 2, "domain_type" => "theory", "type" => "task"]);
+        \App\Element::create(["template_id" => 1, "domain_id" => 3, "domain_type" => "theory", "type" => "task"]);
+        \App\Element::create(["template_id" => 1, "domain_id" => 4, "domain_type" => "theory", "type" => "task"]);
+
 
         \App\Task::create(["domain_id" => 1, "type" => "practice", "body" => "Izracunati:"]);
         \App\Task::create(["domain_id" => 1, "type" => "practice", "body" => "Izracunati:"]);

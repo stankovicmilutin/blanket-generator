@@ -36,3 +36,5 @@ React is a JavaScript library for building user interfaces.
 The Laravel framework is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
 React is [MIT licensed](./LICENSE).
+
+This project is also licensed under the [MIT license](https://opensource.org/licenses/MIT).

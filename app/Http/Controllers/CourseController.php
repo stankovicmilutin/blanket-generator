@@ -43,7 +43,6 @@ class CourseController extends Controller
             "domains"       => "required|array"
         ]);
 
-
         $course = Course::create($request->all());
 
         foreach ($request->get('domains') as $domain) {
@@ -80,8 +79,9 @@ class CourseController extends Controller
         return redirect()->route('courses.index');
     }
 
-    public function delete()
+    public function destroy(Course $course)
     {
-
+        $course->delete();
+        return response("OK");
     }
 }

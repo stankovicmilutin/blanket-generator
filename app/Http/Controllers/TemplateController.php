@@ -81,8 +81,14 @@ class TemplateController extends Controller
         return view('templates.edit', compact('course', 'template'));
     }
 
-    public function delete()
+    public function destroy(Template $template)
     {
+        $template->delete();
+        return response("OK");
+    }
 
+    public function getElement(Template $template)
+    {
+        return response(["data" => $template->load('elements.domain.tasks')]);
     }
 }

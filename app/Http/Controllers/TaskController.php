@@ -65,9 +65,10 @@ class TaskController extends Controller
         return redirect()->route('tasks.index');
     }
 
-    public function delete()
+    public function destroy(Task $task)
     {
-
+        $task->delete();
+        return response("OK");
     }
 
     public function uploader(Request $request)
