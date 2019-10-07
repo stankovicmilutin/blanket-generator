@@ -6,6 +6,7 @@ use App\Blanket;
 use App\Course;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\DataTables;
 
 class BlanketController extends Controller
@@ -92,5 +93,36 @@ class BlanketController extends Controller
     {
         $blanket->delete();
         return response("OK");
+    }
+
+    public function pdf(Blanket $blanket)
+    {
+        $blanket->load('template.elements.domain.tasks', 'tasks', 'template.course.department');
+
+        $filePath = implode('/', [
+            'pdf',
+            $blanket->template->course->module->name,
+            $blanket->template->course->name,
+            $blanket->date->format('Y'),
+            $blanket->examination_period
+        ]);
+
+        if (!\File::exists(public_path($filePath))) {
+            \File::makeDirectory(public_path($filePath), 0755, true);
+        }
+
+        $fileName = implode("-", [
+            $blanket->template->course->name,
+            $blanket->template->name,
+            $blanket->examination_period,
+            $blanket->date->format('Y')
+        ]);
+
+        $fileName = Str::slug($fileName) . ".pdf";
+
+        $pdf = \PDF::loadView('blankets.pdf', compact('blanket'))
+            ->save($filePath . '/' . $fileName);
+
+        return $pdf->download($fileName);
     }
 }

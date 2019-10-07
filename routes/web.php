@@ -35,6 +35,7 @@ Route::group(["middleware" => "auth"], function() {
 
 
     Route::get('blankets/get', 'BlanketController@getBlankets');
+    Route::get('blankets/{blanket}/pdf', 'BlanketController@pdf');
     Route::resource('blankets', 'BlanketController');
 
     Route::post('uploader/upload', 'TaskController@uploader');

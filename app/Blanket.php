@@ -12,6 +12,8 @@ class Blanket extends Model
         'examination_period',
     ];
 
+    protected $dates = ["date"];
+
     public function template()
     {
         return $this->belongsTo(Template::class);
