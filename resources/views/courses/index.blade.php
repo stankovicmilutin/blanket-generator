@@ -22,6 +22,7 @@
                         <tr>
                             <th>ID</th>
                             <th>Name</th>
+                            <th>Module</th>
                             <th>Department</th>
                             <th>Actions</th>
                         </tr>
@@ -58,6 +59,7 @@
                 "columns": [
                     {data: 'id'},
                     {data: 'name'},
+                    {data: 'module_name'},
                     {data: 'department_name'},
                     {
                         data: null,

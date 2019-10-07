@@ -85,7 +85,8 @@ class TemplateGenerator extends React.Component {
     }
 
     submitForm() {
-        axios.post(`/templates`, this.state);
+        axios.post(`/templates`, this.state)
+            .then(() => window.location.href = '/templates');
     }
 
     render() {

@@ -21,6 +21,7 @@
 
                                     @include('tasks.form', [
                                         "course" => $course,
+                                        "task" => \App\Task::make(),
                                         "domains" => $course->domains,
                                         "buttonText" => "Create"
                                     ])

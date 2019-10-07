@@ -21,8 +21,10 @@ class CourseController extends Controller
      */
     public function getCourses()
     {
-        $query = Course::select(['courses.*', 'departments.name AS department_name'])
-            ->join('departments', 'departments.id', '=', 'courses.department_id')->get();
+        $query = Course::select(['courses.*', 'departments.name AS department_name',  'modules.name AS module_name'])
+            ->join('departments', 'departments.id', '=', 'courses.department_id')
+            ->join('modules', 'modules.id', '=', 'courses.module_id')
+            ->get();
 
         return Datatables::of($query)->make(true);
     }
@@ -72,7 +74,9 @@ class CourseController extends Controller
         $course->update($request->all());
 
         foreach ($request->get('domains') as $domain) {
-            $course->domains()->create(["name" => $domain]);
+            if ($domain && trim($domain != '')) {
+                $course->domains()->create(["name" => trim($domain)]);
+            }
         }
 
         flash("Successfully updated");

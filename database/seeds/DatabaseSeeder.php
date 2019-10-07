@@ -69,21 +69,19 @@ class DatabaseSeeder extends Seeder
 
 
         // Oblasti
-        \App\Domain::create(["course_id" => 1, "name" => "Kompleksni brojevi"]);
-        \App\Domain::create(["course_id" => 1, "name" => "Sistemi jednaćina"]);
-        \App\Domain::create(["course_id" => 1, "name" => "Polinomi"]);
-        \App\Domain::create(["course_id" => 1, "name" => "Matrice"]);
-        \App\Domain::create(["course_id" => 1, "name" => "Analitička geometrija"]);
-        \App\Domain::create(["course_id" => 1, "name" => "Vektori"]);
+        \App\Domain::create(["course_id" => 1, "name" => "Kompleksni brojevi"])     ->tasks()->saveMany(factory(\App\Task::class, 10)->make());
+        \App\Domain::create(["course_id" => 1, "name" => "Sistemi jednaćina"])      ->tasks()->saveMany(factory(\App\Task::class, 10)->make());
+        \App\Domain::create(["course_id" => 1, "name" => "Polinomi"])               ->tasks()->saveMany(factory(\App\Task::class, 10)->make());
+        \App\Domain::create(["course_id" => 1, "name" => "Matrice"])                ->tasks()->saveMany(factory(\App\Task::class, 10)->make());
+        \App\Domain::create(["course_id" => 1, "name" => "Analitička geometrija"])  ->tasks()->saveMany(factory(\App\Task::class, 10)->make());
+        \App\Domain::create(["course_id" => 1, "name" => "Vektori"])                ->tasks()->saveMany(factory(\App\Task::class, 10)->make());
 
-        \App\Domain::create(["course_id" => 2, "name" => "Nizovi"]);
-        \App\Domain::create(["course_id" => 2, "name" => "Tačke prekida funkcije"]);
-        \App\Domain::create(["course_id" => 2, "name" => "Grafik funkcije"]);
-        \App\Domain::create(["course_id" => 2, "name" => "Integrali"]);
-
-        \App\Domain::create(["course_id" => 2, "name" => "Granične vrednosti"]);
-        \App\Domain::create(["course_id" => 2, "name" => "Funkcije"]);
-        \App\Domain::create(["course_id" => 2, "name" => "Integrali"]);
+        \App\Domain::create(["course_id" => 2, "name" => "Nizovi"])                 ->tasks()->saveMany(factory(\App\Task::class, 10)->make());
+        \App\Domain::create(["course_id" => 2, "name" => "Tačke prekida funkcije"]) ->tasks()->saveMany(factory(\App\Task::class, 10)->make());
+        \App\Domain::create(["course_id" => 2, "name" => "Grafik funkcije"])        ->tasks()->saveMany(factory(\App\Task::class, 10)->make());
+        \App\Domain::create(["course_id" => 2, "name" => "Granične vrednosti"])     ->tasks()->saveMany(factory(\App\Task::class, 10)->make());
+        \App\Domain::create(["course_id" => 2, "name" => "Funkcije"])               ->tasks()->saveMany(factory(\App\Task::class, 10)->make());
+        \App\Domain::create(["course_id" => 2, "name" => "Integrali"])              ->tasks()->saveMany(factory(\App\Task::class, 10)->make());
 
         \App\Template::create(["course_id" => 1, "name" => "Prvi kolokvijum"]);
         \App\Template::create(["course_id" => 1, "name" => "Drugi kolokvijum"]);
@@ -102,13 +100,5 @@ class DatabaseSeeder extends Seeder
         \App\Element::create(["template_id" => 1, "domain_id" => 4, "domain_type" => "theory", "type" => "task"]);
 
 
-        \App\Task::create(["domain_id" => 1, "type" => "practice", "body" => "Izracunati:"]);
-        \App\Task::create(["domain_id" => 1, "type" => "practice", "body" => "Izracunati:"]);
-        \App\Task::create(["domain_id" => 1, "type" => "practice", "body" => "Izracunati:"]);
-        \App\Task::create(["domain_id" => 1, "type" => "practice", "body" => "Izracunati:"]);
-        \App\Task::create(["domain_id" => 1, "type" => "theory", "body" => "Izvedi formulu:"]);
-        \App\Task::create(["domain_id" => 1, "type" => "theory", "body" => "Izvedi formulu:"]);
-        \App\Task::create(["domain_id" => 1, "type" => "theory", "body" => "Izvedi formulu:"]);
-        \App\Task::create(["domain_id" => 1, "type" => "theory", "body" => "Izvedi formulu:"]);
     }
 }

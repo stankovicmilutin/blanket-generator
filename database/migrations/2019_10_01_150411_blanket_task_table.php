@@ -19,7 +19,8 @@ class BlanketTaskTable extends Migration
             $table->unsignedBigInteger('blanket_id');
             $table->unsignedBigInteger('task_id');
 
-            $table->timestamps();
+            $table->foreign('blanket_id')->references('id')->on('blankets')->onDelete('cascade');
+            $table->foreign('task_id')->references('id')->on('tasks')->onDelete('cascade');
         });
     }
 

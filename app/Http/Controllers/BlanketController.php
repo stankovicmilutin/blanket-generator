@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Blanket;
 use App\Course;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -46,19 +47,45 @@ class BlanketController extends Controller
 
     public function store(Request $request)
     {
+        $blanket = Blanket::create([
+            'template_id'        => $request->get('template_id'),
+            'date'               => Carbon::parse($request->get('date')),
+            'examination_period' => $request->get('examination_period')
+        ]);
+
+        foreach ($request->get("elements") as $element) {
+            if ($element["type"] == "task") {
+                $blanket->tasks()->attach($element["task"]["id"]);
+            }
+        }
 
         return response('OK');
     }
 
     public function edit(Blanket $blanket)
     {
-        return view('blankets.edit', compact('blanket'));
-
+        $course = $blanket->template->course;
+        $blanket->load('template.elements.domain.tasks', 'tasks');
+        $course->load('domains', 'department', 'templates');
+        return view('blankets.edit', compact('blanket', 'course'));
     }
 
     public function update(Request $request, Blanket $blanket)
     {
+        $blanket->update([
+            'template_id'        => $request->get('template_id'),
+            'date'               => Carbon::parse($request->get('date')),
+            'examination_period' => $request->get('examination_period')
+        ]);
 
+        $blanket->tasks()->detach();
+        foreach ($request->get("elements") as $element) {
+            if ($element["type"] == "task" && isset($element["task"])) {
+                $blanket->tasks()->attach($element["task"]["id"]);
+            }
+        }
+
+        return response('OK');
     }
 
     public function destroy(Request $request, Blanket $blanket)

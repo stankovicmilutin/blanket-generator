@@ -16,4 +16,10 @@ class Task extends Model
     {
         return $this->belongsTo(Domain::class);
     }
+
+
+    public function blankets()
+    {
+        return $this->belongsToMany(Blanket::class);
+    }
 }

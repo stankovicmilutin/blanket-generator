@@ -95470,6 +95470,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_5__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -95513,10 +95521,10 @@ function (_React$Component) {
 
     _this.state = {
       "course": props.course,
-      "selectedTemplate": '',
-      "template": {},
-      "elements": [],
-      "date": '',
+      "selectedTemplate": props.blanket.template_id || '',
+      "template": props.blanket.template || {},
+      "elements": _this.parseElements(props.blanket),
+      "date": props.blanket.date ? new Date(props.blanket.date) : '',
       "header": {
         "university": "Univerzitet u Nišu",
         "college": "Elektronski fakultet",
@@ -95525,13 +95533,36 @@ function (_React$Component) {
       "footer": {
         "signature": "Predmetni nastavnik"
       },
-      "title": props.template.name || props.course.name
-    };
-    console.log(props);
+      "title": props.blanket.template ? props.blanket.template.name : props.course.name,
+      "examinationPeriod": props.blanket.examination_period || ''
+    }; // console.log(props);
+
     return _this;
   }
 
   _createClass(BlanketGenerator, [{
+    key: "parseElements",
+    value: function parseElements(blanket) {
+      if (!blanket.template) {
+        return [];
+      }
+
+      var elements = blanket.template.elements;
+
+      var tasks = _toConsumableArray(blanket.tasks);
+
+      return elements.map(function (e) {
+        if (e.type === 'task' && tasks.length) {
+          e.task = tasks.shift();
+          e.taskIndex = e.domain.tasks.findIndex(function (t) {
+            return t.id === e.task.id;
+          });
+        }
+
+        return e;
+      });
+    }
+  }, {
     key: "handleTemplateChange",
     value: function handleTemplateChange(templateId) {
       var _this2 = this;
@@ -95547,11 +95578,11 @@ function (_React$Component) {
         }).then(function (res) {
           _this2.setState({
             template: res.data.data,
+            title: res.data.data.name,
             elements: res.data.data.elements.map(function (e) {
               if (e.type === 'task') {
                 var picker = _this2.pickTask(e);
 
-                console.log(picker);
                 e.task = picker.task;
                 e.taskIndex = picker.index;
               }
@@ -95579,14 +95610,17 @@ function (_React$Component) {
           text: 'There is only one task for this domain and domain type!'
         });
         return {
-          task: tasks[oldTaskIndex].body,
-          index: -1
+          task: element.domain.tasks[oldTaskIndex],
+          index: oldTaskIndex,
+          hideIcon: true
         };
       }
 
       if (tasks.length === 0) {
         return {
-          task: 'Not enough tasks for set domain',
+          task: {
+            body: 'Not enough tasks for set domain'
+          },
           index: -1
         };
       }
@@ -95598,17 +95632,18 @@ function (_React$Component) {
       }
 
       return {
-        task: tasks[index].body,
+        task: tasks[index],
         index: index
       };
     }
   }, {
     key: "refreshTask",
-    value: function refreshTask(templateElement, taskIndex, elementIndex) {
-      var pickedTask = this.pickTask(templateElement, taskIndex);
+    value: function refreshTask(templateElement, elementIndex) {
+      var pickedTask = this.pickTask(templateElement, templateElement.taskIndex);
       var elements = this.state.elements;
       elements[elementIndex].task = pickedTask.task;
       elements[elementIndex].taskIndex = pickedTask.index;
+      elements[elementIndex].hideIcon = pickedTask.hideIcon;
       this.setState({
         elements: elements
       });
@@ -95616,7 +95651,34 @@ function (_React$Component) {
   }, {
     key: "submitForm",
     value: function submitForm() {
-      axios__WEBPACK_IMPORTED_MODULE_2___default.a.post("/templates", this.state);
+      var requestData = {
+        "template_id": this.state.template.id,
+        "date": this.state.date,
+        "examination_period": this.state.examinationPeriod,
+        "elements": this.state.template.elements.map(function (e, i) {
+          var element = {
+            id: e.id,
+            type: e.type,
+            text: e.text
+          };
+
+          if (e.type === 'task' && e.taskIndex !== -1) {
+            element.task = e.task;
+          }
+
+          return element;
+        })
+      };
+
+      if (this.props.blanket.id) {
+        axios__WEBPACK_IMPORTED_MODULE_2___default.a.put("/blankets/".concat(this.props.blanket.id), requestData).then(function () {
+          return window.location.href = '/blankets';
+        });
+      } else {
+        axios__WEBPACK_IMPORTED_MODULE_2___default.a.post("/blankets", requestData).then(function () {
+          return window.location.href = '/blankets';
+        });
+      }
     }
   }, {
     key: "render",
@@ -95629,7 +95691,7 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row mb-2"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-6"
+        className: "col-4"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         className: ""
       }, "Template"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
@@ -95647,7 +95709,36 @@ function (_React$Component) {
           value: template.id
         }, template.name);
       }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-6 text-right"
+        className: "col-4"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        className: "text-center"
+      }, "Examination Period"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+        className: "form-control",
+        value: this.state.examinationPeriod,
+        onChange: function onChange(event) {
+          return _this3.setState({
+            examinationPeriod: event.target.value
+          });
+        }
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "",
+        disabled: true
+      }, "Chose Period"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "Januar"
+      }, "Januar"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "April"
+      }, "April"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "Jun"
+      }, "Jun"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "Septembar"
+      }, "Septembar"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "Oktobar"
+      }, "Oktobar"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "Oktobar II"
+      }, "Oktobar II"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "Decembar"
+      }, "Decembar"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-4"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         className: "d-block"
       }, "Date"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_datepicker__WEBPACK_IMPORTED_MODULE_3___default.a, {
@@ -95702,16 +95793,16 @@ function (_React$Component) {
             className: "row pt-1",
             key: index
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-            className: "col-1 text-right"
-          }, taskCounter++, "."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-            className: "col-10",
+            className: "col-2 text-right"
+          }, taskCounter++, ". ", templateElement.task ? templateElement.task.id : '/'), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            className: "col-9",
             dangerouslySetInnerHTML: {
-              __html: templateElement.task
+              __html: templateElement.task ? templateElement.task.body : '/'
             }
-          }), templateElement.taskIndex !== -1 && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          }), !templateElement.hideIcon && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
             className: "col-1 text-danger",
             onClick: function onClick() {
-              _this3.refreshTask(templateElement, templateElement.taskIndex, index);
+              return _this3.refreshTask(templateElement, index);
             }
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
             className: "fa fa-refresh"
@@ -95738,7 +95829,7 @@ if (document.getElementById('blanketGenerator')) {
   var props = element.dataset;
   react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(BlanketGenerator, {
     course: JSON.parse(props.course),
-    template: JSON.parse(props.blanket)
+    blanket: JSON.parse(props.blanket)
   }), element);
 }
 
@@ -95942,7 +96033,9 @@ function (_React$Component) {
   }, {
     key: "submitForm",
     value: function submitForm() {
-      axios__WEBPACK_IMPORTED_MODULE_2___default.a.post("/templates", this.state);
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.post("/templates", this.state).then(function () {
+        return window.location.href = '/templates';
+      });
     }
   }, {
     key: "render",
@@ -96438,8 +96531,8 @@ function debounce(func, wait, immediate) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\Work\Projects\generator\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\Work\Projects\generator\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\Work\Projects\blanket-generator\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\Work\Projects\blanket-generator\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

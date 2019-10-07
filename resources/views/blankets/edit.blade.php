@@ -15,7 +15,10 @@
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            @include('blankets.form', ["course" => $course, 'blanket' => $blanket])
+                            @include('blankets.form', [
+                                "course"  => $course,
+                                "blanket" => $blanket
+                            ])
                         </div>
                     </div>
                 </div>
