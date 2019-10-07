@@ -6,7 +6,7 @@
 <p>Built with</p>
 <p align="center">
     <img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400">
-    <img src="https://png2.cleanpng.com/sh/25ced91ff24f0f8e55445d41cee0bcaf/L0KzQYm3WMIxN6h5gZH0aYP2gLBuTgJmaZR5Rd54Z3Awgrbrlgguf5ZniNNsaz3lcbPsjL0uPZM8eqk7NUi5SYWCUcIvPWU7TaY9MEK0RYS7WME3QGY7TKU6Mz7zfri=/kisspng-react-logo-redux-webpack-babel--5b7b7258694912.5465440215348168564313.png" width="340">
+    <img src="https://dwglogo.com/wp-content/uploads/2017/09/React_logo-768x432.png" width="340">
 </p>
 
 
