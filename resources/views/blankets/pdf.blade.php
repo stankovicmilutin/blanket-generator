@@ -1,6 +1,6 @@
 <html lang="en">
 <head>
-    <title>Blanket</title>
+    <title>{{ $blanket->template->name ."-". $blanket->examination_period }}</title>
 {{--    <link href="{{ mix('css/app.css') }}" rel="stylesheet">--}}
 
     <style>

@@ -43,7 +43,7 @@ Tip 2: you can also add an image using data-image tag
 
         <ul class="nav">
             <li class="nav-item">
-                <a class="nav-link" href="/">
+                <a class="nav-link" href="{{ route('index') }}">
                     <i class="nc-icon nc-chart-pie-35"></i>
                     <p>Dashboard</p>
                 </a>
@@ -94,11 +94,13 @@ Tip 2: you can also add an image using data-image tag
                 </a>
             </li>
 
+            <hr/>
+
 
             <li class="nav-item ">
-                <a class="nav-link" href="/">
+                <a class="nav-link"  href="{{ route('home') }}">
                     <i class="nc-icon nc-chart-bar-32"></i>
-                    <p>Reports</p>
+                    <p>Blanket database</p>
                 </a>
             </li>
 

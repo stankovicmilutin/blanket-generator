@@ -21,6 +21,8 @@ class CreateBlanketsTable extends Migration
             $table->string('examination_period');
             $table->date('date');
 
+            $table->string('file_path')->nullable();
+
             $table->timestamps();
 
             $table->foreign('template_id')->references('id')->on('templates')->onDelete('cascade');

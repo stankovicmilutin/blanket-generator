@@ -11,13 +11,13 @@
 |
 */
 
-Route::get('/', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@home')->name('home');
 
 Auth::routes();
 
 
 Route::group(["middleware" => "auth"], function() {
-    Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/home', 'HomeController@index')->name('index');
 
 
     Route::get('/settings', 'SettingsController@index')->name('settings.index');

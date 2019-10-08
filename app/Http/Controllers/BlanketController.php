@@ -97,12 +97,17 @@ class BlanketController extends Controller
 
     public function pdf(Blanket $blanket)
     {
+        if ($blanket->file_path) {
+            $file = public_path($blanket->file_path);
+            return response()->download($file);
+        }
+
         $blanket->load('template.elements.domain.tasks', 'tasks', 'template.course.department');
 
         $filePath = implode('/', [
             'pdf',
-            $blanket->template->course->module->name,
-            $blanket->template->course->name,
+            $blanket->template->course->module_id,
+            $blanket->template->course_id,
             $blanket->date->format('Y'),
             $blanket->examination_period
         ]);
@@ -122,6 +127,8 @@ class BlanketController extends Controller
 
         $pdf = \PDF::loadView('blankets.pdf', compact('blanket'))
             ->save($filePath . '/' . $fileName);
+
+        $blanket->update(["file_path" => $filePath . '/' . $fileName]);
 
         return $pdf->download($fileName);
     }

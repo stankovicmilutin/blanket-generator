@@ -10,6 +10,7 @@ class Blanket extends Model
         'template_id',
         'date',
         'examination_period',
+        'file_path'
     ];
 
     protected $dates = ["date"];

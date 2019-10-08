@@ -2,27 +2,34 @@
 
 namespace App\Http\Controllers;
 
+use App\Blanket;
+use App\Module;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
-    /**
-     * Show the application dashboard.
+     * Public dashboard
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+    public function home()
+    {
+        $blankets = Blanket::where("date", "<", Carbon::now()->subDay())->get();
+
+        $modules = Module::with('courses.templates')->get();
+
+        return view('home', compact('blankets', 'modules'));
+    }
+
+    /**
+     * Admin dashboard
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
-        return view('home');
+        $blankets = Blanket::with('template.course.module')->latest()->take(5)->get();
+        return view('index', compact('blankets'));
     }
 }

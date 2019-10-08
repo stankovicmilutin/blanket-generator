@@ -20,4 +20,9 @@ class Template extends Model
     {
         return $this->hasMany(Element::class);
     }
+
+    public function blankets()
+    {
+        return $this->hasMany(Blanket::class);
+    }
 }

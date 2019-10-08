@@ -36,7 +36,7 @@
         @endauth
 
 
-        <div class="content">
+        <div class="content" @guest style="padding-top: 5vh" @endguest>
             <div class="container-fluid">
                 @include('flash::message')
 

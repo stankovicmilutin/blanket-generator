@@ -75,11 +75,13 @@
                     },
                     {
                         data: null,
-                        render: (() => `
-                                           <button onclick="window.location.href = '/blankets/' + $(this).closest('tr').data('id') + '/edit'" class="btn btn-link btn-warning"><i class="fa fa-edit"></i></button>
-                                           <button class="btn btn-link btn-danger js-delete"><i class="fa fa-times"></i></button>
-                                           <button onclick="window.location.href = '/blankets/' + $(this).closest('tr').data('id') + '/pdf'" class="btn btn-link btn-danger"><i class="fa fa-file-pdf-o"></i></button>
-                                  `)
+                        render: (d => {
+                                    let html = `<button onclick="window.location.href = '/blankets/' + $(this).closest('tr').data('id') + '/edit'" class="btn btn-link btn-warning"><i class="fa fa-edit"></i></button>`;
+                                        html += `<button class="btn btn-link btn-danger js-delete"><i class="fa fa-times"></i></button>`;
+                                        let btnClass = d.file_path ? 'btn-danger' : 'btn-warning';
+                                        html += `<button onclick="window.location.href = '/blankets/' + $(this).closest('tr').data('id') + '/pdf'" class="btn btn-link ${btnClass}"><i class="fa fa-file-pdf-o"></i></button>`;
+                                    return html;
+                        })
                     }
                 ],
 
