@@ -16,6 +16,7 @@ class CreateBlanketsTable extends Migration
         Schema::create('blankets', function (Blueprint $table) {
             $table->bigIncrements('id');
 
+            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('template_id');
 
             $table->string('examination_period');
@@ -25,6 +26,7 @@ class CreateBlanketsTable extends Migration
 
             $table->timestamps();
 
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('template_id')->references('id')->on('templates')->onDelete('cascade');
         });
     }

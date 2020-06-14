@@ -7,12 +7,12 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col-6">
-                            <h4 class="card-title">Blankets List</h4>
-                            <p class="card-category">List of all blankets</p>
+                            <h4 class="card-title">Users List</h4>
+                            <p class="card-category">List of all system users</p>
                         </div>
 
                         <div class="col-6 text-right">
-                            <a class="btn btn-primary" href="{{ route('blankets.create') }}">Create new blanket</a>
+                            <a class="btn btn-primary" href="{{ route('users.create') }}">Create new user</a>
                         </div>
                     </div>
                 </div>
@@ -21,12 +21,8 @@
                         <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Ex. Period</th>
-                            <th>Template</th>
-                            <th>Course</th>
-                            <th>Module</th>
-                            <th>Department</th>
-                            <th>Date</th>
+                            <th>Name</th>
+                            <th style="max-width: 350px">Courses</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
@@ -52,47 +48,33 @@
                     searchPlaceholder: "Search records",
                 },
                 "ajax": {
-                    url: "blankets/get",
+                    url: "users/get",
                     data: function (d) {
                         // console.log(d);
                     }
                 },
                 "processing": true,
                 "serverSide": true,
-                "order": [[6, 'DESC']],
                 "columns": [
                     {data: 'id'},
-                    {data: 'examination_period'},
-                    {data: 'template_name'},
-                    {data: 'course_name'},
-                    {data: 'module_name'},
-                    {data: 'department_name'},
-                    {
-                        data: 'date',
-                        render: (data) => {
-                            let date = data.split(" ");
-                            return date[0].split('-').reverse().join('.') + '.';
-                        }
+                    {data: 'name'},{
+                        data: 'courses',
+                        render: data => data.map(c => c.name).join(', ')
                     },
                     {
                         data: null,
-                        render: (d => {
-                                    let html = `<button onclick="window.location.href = '/blankets/' + $(this).closest('tr').data('id') + '/edit'" class="btn btn-link btn-warning"><i class="fa fa-edit"></i></button>`;
-                                        html += `<button class="btn btn-link btn-danger js-delete"><i class="fa fa-times"></i></button>`;
-                                        let btnClass = d.file_path ? 'btn-danger' : 'btn-warning';
-                                        html += `<button onclick="window.location.href = '/blankets/' + $(this).closest('tr').data('id') + '/pdf'" class="btn btn-link ${btnClass}"><i class="fa fa-file-pdf-o"></i></button>`;
-                                    return html;
-                        })
+                        render: (
+                            () => `<button onclick="window.location.href = '/users/' + $(this).closest('tr').data('id') + '/edit'" class="btn btn-link btn-warning"><i class="fa fa-edit"></i></button>
+                                   <button class="btn btn-link btn-danger js-delete"><i class="fa fa-times"/></i></button>`)
                     }
                 ],
-
                 'createdRow': function (row, data, dataIndex) {
                     $(row).attr('data-id', data.id);
                 },
                 "initComplete": () => {
                     $(document).on("click", "tr[role='row'] .js-delete", (ev) => {
                         let itemId = $(ev.target.closest('tr')).data('id');
-                        let url = `/blankets/${itemId}`;
+                        let url = `/users/${itemId}`;
 
                         swal.fire({
                             title: `Delete`,

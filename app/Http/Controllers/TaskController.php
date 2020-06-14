@@ -24,19 +24,29 @@ class TaskController extends Controller
      */
     public function getTasks()
     {
-        $query = Task::select(['tasks.*', 'domains.name AS domain_name', 'courses.name AS course_name', 'modules.name AS module_name' ])
+        $coursesId = auth()->user()->courses->pluck('id');
+
+        $query = Task::select(['tasks.*', 'domains.name AS domain_name', 'courses.name AS course_name', 'modules.name AS module_name'])
             ->join('domains', 'domains.id', '=', 'tasks.domain_id')
             ->join('courses', 'courses.id', '=', 'domains.course_id')
-            ->join('modules', 'modules.id', '=', 'courses.module_id')
-            ->get();
+            ->join('modules', 'modules.id', '=', 'courses.module_id');
 
-        return Datatables::of($query)->make(true);
+        if (!auth()->user()->is_admin) {
+            $query->whereIn('courses.id', $coursesId);
+        }
+
+        return Datatables::of($query->get())->make(true);
     }
 
     public function create(Request $request)
     {
-        $courses = Course::with('module')->get();
         $course = Course::find($request->get('course'));
+
+        if (auth()->user()->is_admin) {
+            $courses = Course::with('module', 'department')->get();
+        } else {
+            $courses = auth()->user()->courses()->with('module', 'department')->get();
+        }
 
         if ($course) {
             $course->load('domains', 'department');
@@ -47,6 +57,12 @@ class TaskController extends Controller
 
     public function store(Request $request)
     {
+        $this->validate($request, [
+            "type"      => "required",
+            "domain_id" => "required",
+            "body"      => "required",
+        ]);
+
         Task::create($request->all());
         flash("Successfully created");
         return redirect()->route('tasks.index');
@@ -60,7 +76,7 @@ class TaskController extends Controller
 
     public function update(Request $request, Task $task)
     {
-            $task->update($request->all());
+        $task->update($request->all());
         flash("Successfully created");
         return redirect()->route('tasks.index');
     }
@@ -78,14 +94,14 @@ class TaskController extends Controller
         return response([
             "uploaded" => 1,
             "fileName" => $filePath,
-            "url" => '/storage/' . $filePath
+            "url"      => '/storage/' . $filePath
         ]);
     }
 
     public function createDirIfNotExist(string $path)
     {
         if ($this->directoryNotExist($path)) {
-            mkdir($path,0777, true);
+            mkdir($path, 0777, true);
         }
     }
 
@@ -97,7 +113,6 @@ class TaskController extends Controller
     {
         return !File::isDirectory($path);
     }
-
 
     public function uploadImage(UploadedFile $file, string $path): string
     {

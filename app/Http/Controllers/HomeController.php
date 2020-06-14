@@ -29,7 +29,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $blankets = Blanket::with('template.course.module')->latest()->take(5)->get();
+        $blankets = Blanket::with('template.course.module')->latest()->take(15)->get();
         return view('index', compact('blankets'));
     }
 }

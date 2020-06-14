@@ -10,8 +10,9 @@ class BlanketGenerator extends React.Component {
         super(props);
 
         this.state = {
+            "errors": {},
             "course": props.course,
-            "selectedTemplate":  props.blanket.template_id || '',
+            "selectedTemplate": props.blanket.template_id || '',
             "template": props.blanket.template || {},
             "elements": this.parseElements(props.blanket),
             "date": props.blanket.date ? new Date(props.blanket.date) : '',
@@ -92,7 +93,7 @@ class BlanketGenerator extends React.Component {
         if (tasks.length === 0) {
             return {
                 task: {
-                    body: 'Not enough tasks for set domain'
+                    body: 'Not enough tasks for domain, please add tasks first!'
                 },
                 index: -1
             };
@@ -123,32 +124,45 @@ class BlanketGenerator extends React.Component {
     getRandomIndex = (maxIndex) => Math.floor(Math.random() * maxIndex);
 
     submitForm() {
-        let requestData = {
-            "template_id": this.state.template.id,
-            "date": this.state.date,
-            "examination_period": this.state.examinationPeriod,
-            "elements" : this.state.template.elements.map((e, i) => {
+        let errors = this.state.errors;
 
-                let element = {
-                    id: e.id,
-                    type: e.type,
-                    text: e.text,
-                };
+        errors.template = this.state.selectedTemplate ? null : 'Please select template';
+        errors.date = this.state.date ? null : 'Please select date';
+        errors.examinationPeriod = this.state.examinationPeriod ? null : 'Please select examination period';
+        errors.elements = this.state.elements.length ? null : 'Please add at least 2 elements to template';
 
-                if (e.type === 'task' && e.taskIndex !== -1) {
-                    element.task = e.task;
-                }
+        this.setState({errors});
 
-                return element;
-            })
-        };
-
-        if (this.props.blanket.id) {
-            axios.put(`/blankets/${this.props.blanket.id}`, requestData)
-            .then(() => window.location.href = '/blankets');
+        if (errors.template || errors.date || errors.examinationPeriod) {
+            //
         } else {
-            axios.post(`/blankets`, requestData)
-            .then(() => window.location.href = '/blankets');
+            let requestData = {
+                "template_id": this.state.selectedTemplate,
+                "date": this.state.date,
+                "examination_period": this.state.examinationPeriod,
+                "elements": this.state.template.elements.map((e, i) => {
+
+                    let element = {
+                        id: e.id,
+                        type: e.type,
+                        text: e.text,
+                    };
+
+                    if (e.type === 'task' && e.taskIndex !== -1) {
+                        element.task = e.task;
+                    }
+
+                    return element;
+                })
+            };
+
+            if (this.props.blanket.id) {
+                axios.put(`/blankets/${this.props.blanket.id}`, requestData)
+                    .then(() => window.location.href = '/blankets');
+            } else {
+                axios.post(`/blankets`, requestData)
+                    .then(() => window.location.href = '/blankets');
+            }
         }
     }
 
@@ -160,18 +174,25 @@ class BlanketGenerator extends React.Component {
                     <div className="col-4">
                         <label className="">Template</label>
                         <select className="form-control" value={this.state.selectedTemplate} onChange={(event) => this.handleTemplateChange(event.target.value)}>
-                            <option value='' disabled={true}>Chose template</option>
+                            <option value='' disabled={true}>Choose template</option>
                             {this.props.course.templates.map((template, index) =>
                                 <option key={index} value={template.id}>{template.name}</option>
                             )}
                         </select>
+                        {this.state.errors.template &&
+                        <div style={{
+                                 width: '100%',
+                                 marginTop: '0.25rem', fontSize: '80%',
+                                 color: '#e3342f'
+                             }}>{this.state.errors.template}</div>
+                        }
                     </div>
                     <div className="col-4">
                         <label className="text-center">Examination Period</label>
                         <select className="form-control"
                                 value={this.state.examinationPeriod}
                                 onChange={(event) => this.setState({examinationPeriod: event.target.value})}>
-                            <option value='' disabled={true}>Chose Period</option>
+                            <option value='' disabled={true}>Choose Period</option>
                             <option value="Januar">Januar</option>
                             <option value="April">April</option>
                             <option value="Jun">Jun</option>
@@ -180,6 +201,13 @@ class BlanketGenerator extends React.Component {
                             <option value="Oktobar II">Oktobar II</option>
                             <option value="Decembar">Decembar</option>
                         </select>
+                        {this.state.errors.examinationPeriod &&
+                        <div style={{
+                            width: '100%',
+                            marginTop: '0.25rem', fontSize: '80%',
+                            color: '#e3342f'
+                        }}>{this.state.errors.examinationPeriod}</div>
+                        }
                     </div>
                     <div className="col-4">
                         <label className="d-block">Date</label>
@@ -189,6 +217,13 @@ class BlanketGenerator extends React.Component {
                             selected={this.state.date}
                             onChange={(d) => this.setState({date: d})}
                         />
+                        {this.state.errors.date &&
+                        <div style={{
+                            width: '100%',
+                            marginTop: '0.25rem', fontSize: '80%',
+                            color: '#e3342f'
+                        }}>{this.state.errors.date}</div>
+                        }
                     </div>
                 </div>
 
@@ -232,12 +267,12 @@ class BlanketGenerator extends React.Component {
                                         if (templateElement.type === 'task') {
                                             return (
                                                 <div className="row pt-1" key={index}>
-                                                    <div className="col-2 text-right">{taskCounter++}. {templateElement.task ? templateElement.task.id : '/'}</div>
+                                                    <div className="col-2 text-right">{taskCounter++}.</div>
                                                     <div className="col-9" dangerouslySetInnerHTML={{__html: templateElement.task ? templateElement.task.body : '/'}}/>
-                                                    { ! templateElement.hideIcon &&
-                                                        <div className="col-1 text-danger" onClick={() => this.refreshTask(templateElement, index)}>
-                                                            <i className="fa fa-refresh"/>
-                                                        </div>
+                                                    {!templateElement.hideIcon &&
+                                                    <div className="col-1 text-danger" onClick={() => this.refreshTask(templateElement, index)}>
+                                                        <i className="fa fa-refresh"/>
+                                                    </div>
                                                     }
                                                 </div>
                                             )
@@ -254,6 +289,13 @@ class BlanketGenerator extends React.Component {
                 <div className="">
                     <div className="card-footer text-center">
                         <button className="btn btn-primary" onClick={() => this.submitForm()}>Save</button>
+                        {this.state.errors.elements &&
+                        <div style={{
+                            width: '100%',
+                            marginTop: '0.25rem', fontSize: '80%',
+                            color: '#e3342f'
+                        }}>{this.state.errors.elements}</div>
+                        }
                     </div>
                 </div>
             </div>

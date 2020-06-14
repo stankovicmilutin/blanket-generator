@@ -21,12 +21,17 @@ class CourseController extends Controller
      */
     public function getCourses()
     {
+        $coursesId = auth()->user()->courses->pluck('id');
+
         $query = Course::select(['courses.*', 'departments.name AS department_name',  'modules.name AS module_name'])
             ->join('departments', 'departments.id', '=', 'courses.department_id')
-            ->join('modules', 'modules.id', '=', 'courses.module_id')
-            ->get();
+            ->join('modules', 'modules.id', '=', 'courses.module_id');
 
-        return Datatables::of($query)->make(true);
+        if (!auth()->user()->is_admin) {
+            $query->whereIn('courses.id', $coursesId);
+        }
+
+        return Datatables::of($query->get())->make(true);
     }
 
     public function create()
@@ -39,10 +44,11 @@ class CourseController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            "name"          => "required",
-            "department_id" => "required",
-            "module_id"     => "required",
-            "domains"       => "required|array"
+            "name"           => "required",
+            "department_id"  => "required",
+            "module_id"      => "required",
+            "domains"        => "required|array",
+            "domains.*.name" => "required"
         ]);
 
         $course = Course::create($request->all());

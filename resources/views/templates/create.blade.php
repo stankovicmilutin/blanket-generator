@@ -16,10 +16,14 @@
                         </div>
                         <div class="row">
                             <div class="col-12">
-                                @include('templates.form', [
-                                                            "course" => $course,
-                                                            "template" => ["elements" => []]
-                                                           ])
+                                @if($course->domains->count() == 0)
+                                    <div class="alert alert-warning" role="alert">
+                                        You have no domains defined for this course. Please add domains first.
+                                        Go to: <a href="{{ route('courses.edit', $course->id) }}">Edit course</a>
+                                    </div>
+                                @endif
+
+                                @include('templates.form', ["course" => $course, "template" => ["elements" => []]])
                             </div>
                         </div>
                     @else
@@ -28,7 +32,7 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label>Course</label>
-                                        <select name="course" class="form-control {{ $errors->has('course_id') ? ' is-invalid' : '' }}" name="course_id">
+                                        <select name="course" class="form-control {{ $errors->has('course') ? ' is-invalid' : '' }}" name="course_id">
                                             <option value="" selected disabled>Select Course</option>
                                             @foreach($courses as $c)
                                                 <option value="{{ $c->id }}" {{ (request()->get('course') == $c->id || old('course_id') === $c->id) ? ' selected' : '' }} >
@@ -36,12 +40,17 @@
                                                 </option>
                                             @endforeach
                                         </select>
-                                        @include('layouts.partials.form-error', ['field' => 'course_id'])
+                                        @include('layouts.partials.form-error', ['field' => 'course'])
                                     </div>
                                     <div class="form-group">
-                                        <label> </label>
                                         <button type="submit" class="btn btn-outline-primary">Select</button>
                                     </div>
+
+                                    @if($courses->count() == 0)
+                                        <div class="alert alert-warning" role="alert">
+                                            You have no courses assigned. Please contact administrator!
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </form>

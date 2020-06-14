@@ -20,24 +20,8 @@ Tip 2: you can also add an image using data-image tag
             </div>
             <div class="info ">
                 <a data-toggle="collapse" href="#collapseExample" class="collapsed">
-                    <span>{{ auth()->user()->name }}<b class="caret"></b></span>
+                    <span>{{ auth()->user()->name }}</span>
                 </a>
-                <div class="collapse" id="collapseExample">
-                    <ul class="nav">
-                        <li>
-                            <a class="profile-dropdown" href="#pablo">
-                                <span class="sidebar-mini">MP</span>
-                                <span class="sidebar-normal">My Profile</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="profile-dropdown" href="#pablo">
-                                <span class="sidebar-mini">EP</span>
-                                <span class="sidebar-normal">Edit Profile</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
             </div>
         </div>
 
@@ -49,30 +33,12 @@ Tip 2: you can also add an image using data-image tag
                 </a>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="collapse" href="#componentsExamples">
+            <li class="nav-item ">
+                <a class="nav-link" href="{{ route('blankets.index') }}">
                     <i class="nc-icon nc-single-copy-04"></i>
-                    <p>Blankets <b class="caret"></b></p>
+                    <p>Blankets</p>
                 </a>
-                <div class="collapse " id="componentsExamples">
-                    <ul class="nav">
-                        <li class="nav-item ">
-                            <a class="nav-link" href="{{ route('blankets.index') }}">
-                                <span class="sidebar-mini"></span>
-                                <span class="sidebar-normal">Show Blankets</span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="{{ route('blankets.create') }}">
-                                <span class="sidebar-mini"></span>
-                                <span class="sidebar-normal">Create Blanket</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
             </li>
-
-
             <li class="nav-item ">
                 <a class="nav-link" href="{{ route('tasks.index') }}">
                     <i class="nc-icon nc-bullet-list-67"></i>
@@ -94,6 +60,15 @@ Tip 2: you can also add an image using data-image tag
                 </a>
             </li>
 
+            @if(auth()->user()->is_admin)
+                <li class="nav-item ">
+                    <a class="nav-link" href="{{ route('users.index') }}">
+                        <i class="nc-icon nc-single-02"></i>
+                        <p>Users</p>
+                    </a>
+                </li>
+            @endif
+
             <hr/>
 
 
@@ -107,13 +82,6 @@ Tip 2: you can also add an image using data-image tag
             <li>
                 <hr/>
             </li>
-
-{{--            <li class="nav-item ">--}}
-{{--                <a class="nav-link" href="{{ route('settings.index') }}">--}}
-{{--                    <i class="nc-icon nc-settings-gear-64"></i>--}}
-{{--                    <p>Settings</p>--}}
-{{--                </a>--}}
-{{--            </li>--}}
 
         </ul>
     </div>

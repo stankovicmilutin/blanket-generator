@@ -23,20 +23,30 @@ class BlanketController extends Controller
      */
     public function getBlankets()
     {
+        $coursesId = auth()->user()->courses->pluck('id');
+
         $query = Blanket::select(['blankets.*', 't.name as template_name', 'c.name AS course_name', 'modules.name AS module_name', 'departments.name AS department_name'])
             ->join('templates AS t', 't.id', '=', 'blankets.template_id')
             ->join('courses AS c', 'c.id', '=', 't.course_id')
             ->join('departments', 'departments.id', '=', 'c.department_id')
-            ->join('modules', 'modules.id', '=', 'c.module_id')
-            ->get();
+            ->join('modules', 'modules.id', '=', 'c.module_id');
 
-        return Datatables::of($query)->make(true);
+        if (!auth()->user()->is_admin) {
+            $query->whereIn('c.id', $coursesId);
+        }
+
+        return Datatables::of($query->get())->make(true);
     }
 
     public function create(Request $request)
     {
-        $courses = Course::with('module', 'department')->get();
         $course = Course::find($request->get('course'));
+
+        if (auth()->user()->is_admin) {
+            $courses = Course::with('module', 'department')->get();
+        } else {
+            $courses = auth()->user()->courses()->with('module', 'department')->get();
+        }
 
         if ($course) {
             $course->load('domains', 'department', 'templates');
@@ -49,6 +59,7 @@ class BlanketController extends Controller
     public function store(Request $request)
     {
         $blanket = Blanket::create([
+            'user_id'            => auth()->id(),
             'template_id'        => $request->get('template_id'),
             'date'               => Carbon::parse($request->get('date')),
             'examination_period' => $request->get('examination_period')
@@ -61,6 +72,11 @@ class BlanketController extends Controller
         }
 
         return response('OK');
+    }
+
+    public function show(Blanket $blanket)
+    {
+        return view('blankets.show', compact('blanket'));
     }
 
     public function edit(Blanket $blanket)
@@ -126,9 +142,11 @@ class BlanketController extends Controller
         $fileName = Str::slug($fileName) . ".pdf";
 
         $pdf = \PDF::loadView('blankets.pdf', compact('blanket'))
+
             ->save($filePath . '/' . $fileName);
 
-        $blanket->update(["file_path" => $filePath . '/' . $fileName]);
+//        return view('blankets.pdf', compact('blanket'));
+//        $blanket->update(["file_path" => $filePath . '/' . $fileName]);
 
         return $pdf->download($fileName);
     }

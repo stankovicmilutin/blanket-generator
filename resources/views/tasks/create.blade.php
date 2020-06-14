@@ -5,7 +5,7 @@
         <div class="col-12">
             <div class="card stacked-form">
                 <div class="card-header ">
-                    <h5 class="card-title text-white bg-primary py-2 pl-2">Create template</h5>
+                    <h5 class="card-title text-white bg-primary py-2 pl-2">Create task</h5>
                 </div>
                 <div class="card-body">
                     @if(request()->filled('course'))
@@ -48,6 +48,12 @@
                                         <label> </label>
                                         <button type="submit" class="btn btn-outline-primary">Select</button>
                                     </div>
+
+                                    @if($courses->count() == 0)
+                                        <div class="alert alert-warning" role="alert">
+                                            You have no courses assigned. Please contact administrator!
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </form>

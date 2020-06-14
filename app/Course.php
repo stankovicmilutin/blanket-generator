@@ -12,6 +12,11 @@ class Course extends Model
         "department_id"
     ];
 
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
+
     public function module()
     {
         return $this->belongsTo(Module::class);

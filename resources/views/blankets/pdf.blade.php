@@ -1,12 +1,16 @@
 <html lang="en">
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
     <title>{{ $blanket->template->name ."-". $blanket->examination_period }}</title>
-{{--    <link href="{{ mix('css/app.css') }}" rel="stylesheet">--}}
+
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
         /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
         html {
-            font-family: sans-serif;
+            /*font-family: sans-serif;*/
             -webkit-text-size-adjust: 100%;
             -ms-text-size-adjust: 100%;
         }
@@ -31,18 +35,20 @@
         }
 
         body {
-            /*background-color: #666666;*/
-            font-family: "Lora", serif;
-            font-size: 12pt;
+            font-family: 'Lora', sans-serif;
+            font-size: 13px;
         }
 
         h3 {
             margin-top: 0.7em;
             margin-bottom: 0.5em;
+            font-weight: 700;
         }
+
         h4 {
             margin-top: 0.6em;
             margin-bottom: 0.2em;
+            font-weight: 500 !important;
         }
 
         .container {
@@ -96,6 +102,11 @@
         .row:after {clear: both}
 
         .clearfix {clear: both}
+
+        .task-body p {
+            padding: 0;
+            margin: 0 0 10px 0;
+        }
     </style>
 
 </head>
@@ -141,7 +152,7 @@
                             @if($element->type == 'task')
                                 <div class="row pt-3">
                                     <div class="col-1 text-right">{{$taskCounter++}}.</div>
-                                    <div class="col-9">{{ $blanket->tasks[$taskIndex++]->body }}</div>
+                                    <div class="col-9 task-body">{!! $blanket->tasks[$taskIndex++]->body !!}</div>
                                 </div>
                             @endif
 
@@ -150,7 +161,7 @@
                     </div>
 
                     <hr style="margin-top: 30px"/>
-                    <div class="text-right" style="margin-right: 60px">Predmetni nastavnik</div>
+                    <div class="text-right" style="margin: 10px 60px 30px 0">Predmetni nastavnik</div>
                 </div>
             </div>
         </div>

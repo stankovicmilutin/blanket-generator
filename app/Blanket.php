@@ -8,6 +8,7 @@ class Blanket extends Model
 {
     protected $fillable = [
         'template_id',
+        'user_id',
         'date',
         'examination_period',
         'file_path'
@@ -18,6 +19,11 @@ class Blanket extends Model
     public function template()
     {
         return $this->belongsTo(Template::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
     public function tasks()

@@ -19,9 +19,7 @@ Auth::routes();
 Route::group(["middleware" => "auth"], function() {
     Route::get('/home', 'HomeController@index')->name('index');
 
-
     Route::get('/settings', 'SettingsController@index')->name('settings.index');
-
 
     Route::get('courses/get', 'CourseController@getCourses');
     Route::resource('courses', 'CourseController');
@@ -33,10 +31,16 @@ Route::group(["middleware" => "auth"], function() {
     Route::get('tasks/get', 'TaskController@getTasks');
     Route::resource('tasks', 'TaskController');
 
-
     Route::get('blankets/get', 'BlanketController@getBlankets');
     Route::get('blankets/{blanket}/pdf', 'BlanketController@pdf');
     Route::resource('blankets', 'BlanketController');
 
     Route::post('uploader/upload', 'TaskController@uploader');
+
+
+    Route::group(["middleware" => "admin"], function() {
+
+        Route::get('users/get', 'UserController@getUsers');
+        Route::resource('users', 'UserController');
+    });
 });

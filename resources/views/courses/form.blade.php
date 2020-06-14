@@ -42,12 +42,16 @@
             @empty
                 <input type="text"
                        placeholder="Domain name ..."
-                       class="form-control my-2"
+                       class="form-control my-2 {{ $errors->has('domains.0.name') ? ' is-invalid' : '' }}"
                        value=""
                        name="domains[]">
+                @if($errors->has('domains.0.name'))
+                    <div class="invalid-feedback">
+                        Domain name is required
+                    </div>
+                @endif
             @endforelse
         </div>
-
 
         <span id="addDomain" class="btn btn-outline-primary">Add domain</span>
     </div>

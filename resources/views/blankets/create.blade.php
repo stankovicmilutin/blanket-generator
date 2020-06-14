@@ -42,6 +42,12 @@
                                         <label> </label>
                                         <button type="submit" class="btn btn-outline-primary">Select</button>
                                     </div>
+
+                                    @if($courses->count() == 0)
+                                        <div class="alert alert-warning" role="alert">
+                                            You have no courses assigned. Please contact administrator!
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </form>

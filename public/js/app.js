@@ -95520,6 +95520,7 @@ function (_React$Component) {
     });
 
     _this.state = {
+      "errors": {},
       "course": props.course,
       "selectedTemplate": props.blanket.template_id || '',
       "template": props.blanket.template || {},
@@ -95619,7 +95620,7 @@ function (_React$Component) {
       if (tasks.length === 0) {
         return {
           task: {
-            body: 'Not enough tasks for set domain'
+            body: 'Not enough tasks for domain, please add tasks first!'
           },
           index: -1
         };
@@ -95651,33 +95652,45 @@ function (_React$Component) {
   }, {
     key: "submitForm",
     value: function submitForm() {
-      var requestData = {
-        "template_id": this.state.template.id,
-        "date": this.state.date,
-        "examination_period": this.state.examinationPeriod,
-        "elements": this.state.template.elements.map(function (e, i) {
-          var element = {
-            id: e.id,
-            type: e.type,
-            text: e.text
-          };
+      var errors = this.state.errors;
+      errors.template = this.state.selectedTemplate ? null : 'Please select template';
+      errors.date = this.state.date ? null : 'Please select date';
+      errors.examinationPeriod = this.state.examinationPeriod ? null : 'Please select examination period';
+      errors.elements = this.state.elements.length ? null : 'Please add at least 2 elements to template';
+      this.setState({
+        errors: errors
+      });
 
-          if (e.type === 'task' && e.taskIndex !== -1) {
-            element.task = e.task;
-          }
-
-          return element;
-        })
-      };
-
-      if (this.props.blanket.id) {
-        axios__WEBPACK_IMPORTED_MODULE_2___default.a.put("/blankets/".concat(this.props.blanket.id), requestData).then(function () {
-          return window.location.href = '/blankets';
-        });
+      if (errors.template || errors.date || errors.examinationPeriod) {//
       } else {
-        axios__WEBPACK_IMPORTED_MODULE_2___default.a.post("/blankets", requestData).then(function () {
-          return window.location.href = '/blankets';
-        });
+        var requestData = {
+          "template_id": this.state.selectedTemplate,
+          "date": this.state.date,
+          "examination_period": this.state.examinationPeriod,
+          "elements": this.state.template.elements.map(function (e, i) {
+            var element = {
+              id: e.id,
+              type: e.type,
+              text: e.text
+            };
+
+            if (e.type === 'task' && e.taskIndex !== -1) {
+              element.task = e.task;
+            }
+
+            return element;
+          })
+        };
+
+        if (this.props.blanket.id) {
+          axios__WEBPACK_IMPORTED_MODULE_2___default.a.put("/blankets/".concat(this.props.blanket.id), requestData).then(function () {
+            return window.location.href = '/blankets';
+          });
+        } else {
+          axios__WEBPACK_IMPORTED_MODULE_2___default.a.post("/blankets", requestData).then(function () {
+            return window.location.href = '/blankets';
+          });
+        }
       }
     }
   }, {
@@ -95703,12 +95716,19 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         value: "",
         disabled: true
-      }, "Chose template"), this.props.course.templates.map(function (template, index) {
+      }, "Choose template"), this.props.course.templates.map(function (template, index) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
           key: index,
           value: template.id
         }, template.name);
-      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      })), this.state.errors.template && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        style: {
+          width: '100%',
+          marginTop: '0.25rem',
+          fontSize: '80%',
+          color: '#e3342f'
+        }
+      }, this.state.errors.template)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-4"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         className: "text-center"
@@ -95723,7 +95743,7 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         value: "",
         disabled: true
-      }, "Chose Period"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+      }, "Choose Period"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         value: "Januar"
       }, "Januar"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         value: "April"
@@ -95737,7 +95757,14 @@ function (_React$Component) {
         value: "Oktobar II"
       }, "Oktobar II"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         value: "Decembar"
-      }, "Decembar"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "Decembar")), this.state.errors.examinationPeriod && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        style: {
+          width: '100%',
+          marginTop: '0.25rem',
+          fontSize: '80%',
+          color: '#e3342f'
+        }
+      }, this.state.errors.examinationPeriod)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-4"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         className: "d-block"
@@ -95750,7 +95777,14 @@ function (_React$Component) {
             date: d
           });
         }
-      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
+      }), this.state.errors.date && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        style: {
+          width: '100%',
+          marginTop: '0.25rem',
+          fontSize: '80%',
+          color: '#e3342f'
+        }
+      }, this.state.errors.date))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
         className: "text-center py-3"
       }, "Preview"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "blanket"
@@ -95794,7 +95828,7 @@ function (_React$Component) {
             key: index
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
             className: "col-2 text-right"
-          }, taskCounter++, ". ", templateElement.task ? templateElement.task.id : '/'), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          }, taskCounter++, "."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
             className: "col-9",
             dangerouslySetInnerHTML: {
               __html: templateElement.task ? templateElement.task.body : '/'
@@ -95817,7 +95851,14 @@ function (_React$Component) {
         onClick: function onClick() {
           return _this3.submitForm();
         }
-      }, "Save"))));
+      }, "Save"), this.state.errors.elements && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        style: {
+          width: '100%',
+          marginTop: '0.25rem',
+          fontSize: '80%',
+          color: '#e3342f'
+        }
+      }, this.state.errors.elements))));
     }
   }]);
 

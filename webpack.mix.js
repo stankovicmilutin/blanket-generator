@@ -16,7 +16,7 @@ mix.react('resources/js/app.js', 'public/js')
     .copyDirectory('resources/js/ckeditor', 'public/js/ckeditor')
     .sass('resources/sass/app.scss', 'public/css');
 
-mix.browserSync('generator.local');
+// mix.browserSync('generator.local');
 
 if (mix.inProduction()) {
     mix.version();
