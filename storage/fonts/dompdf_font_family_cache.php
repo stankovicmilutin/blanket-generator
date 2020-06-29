@@ -78,6 +78,9 @@
     'normal' => $rootDir . '/lib/fonts/DejaVuSerif',
   ),
   'lora' => array(
-    'normal' => $fontDir . '/8d0c3b2d8b98d69902e38cba9485a569',
+    'normal' => $fontDir . '/lora-normal_76fab5eb27dfaf2d37d9db139b9dbbc4',
+    '500' => $fontDir . '/lora-500_1e71e374571c80edfcdc7dc73f2ced90',
+    '600' => $fontDir . '/lora-600_69fb2846e4cc4fc6e613c6f1d9a1b19d',
+    'bold' => $fontDir . '/lora-bold_d12272b87f74984d3df25f239dd214d5',
   ),
 ) ?>

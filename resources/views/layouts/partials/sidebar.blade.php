@@ -39,17 +39,18 @@ Tip 2: you can also add an image using data-image tag
                     <p>Blankets</p>
                 </a>
             </li>
-            <li class="nav-item ">
-                <a class="nav-link" href="{{ route('tasks.index') }}">
-                    <i class="nc-icon nc-bullet-list-67"></i>
-                    <p>Tasks</p>
-                </a>
-            </li>
 
             <li class="nav-item ">
                 <a class="nav-link" href="{{ route('templates.index') }}">
                     <i class="nc-icon nc-notes"></i>
                     <p>Templates</p>
+                </a>
+            </li>
+
+            <li class="nav-item ">
+                <a class="nav-link" href="{{ route('tasks.index') }}">
+                    <i class="nc-icon nc-bullet-list-67"></i>
+                    <p>Tasks</p>
                 </a>
             </li>
 

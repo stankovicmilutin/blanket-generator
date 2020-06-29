@@ -16,11 +16,9 @@ class HomeController extends Controller
      */
     public function home()
     {
-        $blankets = Blanket::where("date", "<", Carbon::now()->subDay())->get();
+        $modules = Module::with('courses.templates.blankets')->get();
 
-        $modules = Module::with('courses.templates')->get();
-
-        return view('home', compact('blankets', 'modules'));
+        return view('home', compact('modules'));
     }
 
     /**

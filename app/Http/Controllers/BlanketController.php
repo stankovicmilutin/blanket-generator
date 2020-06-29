@@ -146,7 +146,7 @@ class BlanketController extends Controller
             ->save($filePath . '/' . $fileName);
 
 //        return view('blankets.pdf', compact('blanket'));
-//        $blanket->update(["file_path" => $filePath . '/' . $fileName]);
+        $blanket->update(["file_path" => $filePath . '/' . $fileName]);
 
         return $pdf->download($fileName);
     }

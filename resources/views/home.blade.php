@@ -63,7 +63,9 @@
                                                                 <li><span class="caretH">{{ $year }}</span>
                                                                     <ul class="nested">
                                                                         @foreach($blankets as $blanket)
-                                                                            @if ($blanket->file_path)
+                                                                            @if($blanket->date->gt(now()->subDay()))
+                                                                                <li>{{ $blanket->examination_period }} (PDF not available yet)</li>
+                                                                            @elseif ($blanket->file_path)
                                                                                 <li><a href="{{ $blanket->file_path }}" target="_blank">{{ $blanket->examination_period }}</a></li>
                                                                             @else
                                                                                 <li>{{ $blanket->examination_period }} (PDF not generated yet)</li>
